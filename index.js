@@ -7,6 +7,8 @@ function resize() {
   canvas.width = innerWidth;
   canvas.height = innerHeight;
   canvas.aspect = innerWidth / innerHeight;
+  view.lineWidth = 4;
+  view.lineJoin = "round";
 }
 
 resize();

@@ -1,4 +1,5 @@
 import { Util } from "./util.js";
+import { Face } from "./face.js";
 
 const canvas = document.getElementById("canvas");
 const view = canvas.getContext("2d");
@@ -25,6 +26,14 @@ export class SimpleShape {
     [1, 1, 1], //6 - Bottom right front
     [-1, 1, 1], //7 - Bottom left front
   ];
+  faces = [
+    new Face([4, 5, 6, 7], this), // front
+    new Face([1, 0, 3, 2], this), // back
+    new Face([5, 1, 2, 6], this), // right
+    new Face([0, 4, 7, 3], this), // left
+    new Face([0, 1, 5, 4], this), // top
+    new Face([7, 6, 2, 3], this), // bottom
+  ]
 
   toLocalSpace(p) {
     const sp = {
@@ -44,7 +53,7 @@ export class SimpleShape {
       z: p.z + this.position.z,
     };
   }
-  projectPoint(p) {
+  toXYSpace(p) {
     const x = p.x / -p.z / canvas.aspect;
     const y = p.y / -p.z;
     const screenX = (x + 1) * 0.5 * canvas.width;
@@ -63,7 +72,7 @@ export class SimpleShape {
         z: vertex[2],
       });
       const world = this.toWorldSpace(local);
-      const screenPoint = this.projectPoint(world);
+      const screenPoint = this.toXYSpace(world);
       projected.push(screenPoint);
     }
     return projected;
@@ -71,20 +80,24 @@ export class SimpleShape {
   draw() {
     const projected = this.projectPoints();
     view.beginPath();
-    this.line(projected[0], projected[1]);
-    this.line(projected[1], projected[2]);
-    this.line(projected[2], projected[3]);
-    this.line(projected[3], projected[0]);
 
-    this.line(projected[4], projected[5]);
-    this.line(projected[5], projected[6]);
-    this.line(projected[6], projected[7]);
-    this.line(projected[7], projected[4]);
+    for (const face of this.faces) {
+      face.draw(projected)
+    }
+    // this.line(projected[0], projected[1]);
+    // this.line(projected[1], projected[2]);
+    // this.line(projected[2], projected[3]);
+    // this.line(projected[3], projected[0]);
 
-    this.line(projected[0], projected[4]);
-    this.line(projected[1], projected[5]);
-    this.line(projected[2], projected[6]);
-    this.line(projected[3], projected[7]);
+    // this.line(projected[4], projected[5]);
+    // this.line(projected[5], projected[6]);
+    // this.line(projected[6], projected[7]);
+    // this.line(projected[7], projected[4]);
+
+    // this.line(projected[0], projected[4]);
+    // this.line(projected[1], projected[5]);
+    // this.line(projected[2], projected[6]);
+    // this.line(projected[3], projected[7]);
 
     view.stroke();
     // for (const projection of projected){
