@@ -1,7 +1,7 @@
 import { Util } from "./util.js";
 
-export class Transform{
-    static toLocalSpace(p, scale, rotation) {
+export class Transform {
+  static toLocalSpace(p, scale, rotation) {
     const sp = {
       x: p.x * scale,
       y: p.y * scale,
@@ -20,9 +20,19 @@ export class Transform{
     };
     p.world = world
   }
+
+  static toViewSpace(p, camera) {
+    const view = {
+      x: p.world.x - camera.position.x,
+      y: p.world.y - camera.position.y,
+      z: p.world.z - camera.position.z
+    }
+    p.view = view
+  }
+
   static toXYSpace(p) {
-    const x = p.world.x / -p.world.z / canvas.aspect;
-    const y = p.world.y / -p.world.z;
+    const x = p.view.x / -p.view.z / canvas.aspect;
+    const y = p.view.y / -p.view.z;
     const screenX = (x + 1) * 0.5 * canvas.width;
     const screenY = (1 - y) * 0.5 * canvas.height;
     const screen = {

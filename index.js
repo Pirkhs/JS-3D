@@ -1,4 +1,5 @@
 import { SimpleShape } from "./SimpleShape.js";
+import  Camera  from "./camera.js"
 
 const canvas = document.getElementById("canvas");
 const view = canvas.getContext("2d");
@@ -20,7 +21,7 @@ function drawPoint(p) {
   view.strokeStyle = "rgba(17, 23, 114, 1)";
   view.stroke();
 }
-
+const camera = new Camera();
 const shape = new SimpleShape();
 const gui = new dat.GUI();
 const positionFolder = gui.addFolder("position");
@@ -32,9 +33,9 @@ positionFolder.add(shape, "scale", 0.1, 10);
 function animate() {
   view.clearRect(0, 0, canvas.width, canvas.height);
   shape.rotation.z += 0.01;
-  shape.rotation.y += 0.05;
+  shape.rotation.y += 0.001;
   shape.rotation.x -= 0.01;
-  shape.draw();
+  shape.draw(camera);
   requestAnimationFrame(animate);
 }
 
