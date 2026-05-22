@@ -34,7 +34,7 @@ export class SimpleShape {
     new Face([0, 4, 7, 3], this), // left
     new Face([0, 1, 5, 4], this), // top
     new Face([7, 6, 2, 3], this), // bottom
-  ]
+  ];
   projectPoints(camera) {
     const projected = [];
     for (const vertex of this.model) {
@@ -42,26 +42,26 @@ export class SimpleShape {
         x: vertex[0],
         y: vertex[1],
         z: vertex[2],
-      }
-      this.projectPoint(p, camera)
+      };
+      this.projectPoint(p, camera);
       projected.push(p);
     }
     return projected;
   }
-  projectPoint(p, camera){
-    Transform.toLocalSpace(p, this.scale, this.rotation)
-    Transform.toWorldSpace(p, this.position)
-    Transform.toViewSpace(p, camera)
-    Transform.toXYSpace(p)
+  projectPoint(p, camera) {
+    Transform.toLocalSpace(p, this.scale, this.rotation);
+    Transform.toWorldSpace(p, this.position);
+    Transform.toViewSpace(p, camera);
+    Transform.toXYSpace(p);
   }
   draw(camera) {
     const projected = this.projectPoints(camera);
-    view.beginPath();
+    //view.beginPath();
 
     for (const face of this.faces) {
-      face.draw(projected, camera)
+      face.draw(projected, camera);
     }
-    view.stroke();
+    //view.stroke();
   }
   line(p1, p2) {
     view.moveTo(p1.x, p1.y);

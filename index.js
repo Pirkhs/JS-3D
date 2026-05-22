@@ -1,5 +1,7 @@
+import { Light } from "./Light.js";
 import { SimpleShape } from "./SimpleShape.js";
-import  Camera  from "./camera.js"
+import Camera from "./camera.js";
+import { Scene } from "./Scene.js";
 
 const canvas = document.getElementById("canvas");
 const view = canvas.getContext("2d");
@@ -21,21 +23,34 @@ function drawPoint(p) {
   view.strokeStyle = "rgba(17, 23, 114, 1)";
   view.stroke();
 }
+
+const scene = new Scene();
 const camera = new Camera();
+const red = new Light(4, 4, 5, "red");
 const shape = new SimpleShape();
+scene.add(shape);
+scene.addLight(red);
+
 const gui = new dat.GUI();
-const positionFolder = gui.addFolder("position");
-positionFolder.add(shape.position, "x", -10, 10, 0.01);
-positionFolder.add(shape.position, "y", -10, 10, 0.01);
-positionFolder.add(shape.position, "z", -100, 10, 0.01);
-positionFolder.add(shape, "scale", 0.1, 10);
+const cubeFolder = gui.addFolder("cube");
+cubeFolder.add(shape.position, "x", -10, 10, 0.01);
+cubeFolder.add(shape.position, "y", -10, 10, 0.01);
+cubeFolder.add(shape.position, "z", -100, 10, 0.01);
+cubeFolder.add(shape, "scale", 0.1, 10);
+
+const ligthFolder = gui.addFolder("light");
+ligthFolder.add(red.position, "x", -10, 10, 0.01);
+ligthFolder.add(red.position, "y", -10, 10, 0.01);
+ligthFolder.add(red.position, "z", -100, 10, 0.01);
 
 function animate() {
   view.clearRect(0, 0, canvas.width, canvas.height);
   shape.rotation.z += 0.01;
   shape.rotation.y += 0.001;
   shape.rotation.x -= 0.01;
-  shape.draw(camera);
+  // shape.draw(camera);
+  // red.draw(camera);
+  scene.draw(camera);
   requestAnimationFrame(animate);
 }
 
