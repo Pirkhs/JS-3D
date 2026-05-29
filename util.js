@@ -52,6 +52,10 @@ export class Util {
     };
   }
 
+  static clamp(value, min, max) {
+    return Math.max(min, Math.min(value, max));
+  }
+
   static centroid(...vertices) {
     const c = { x: 0, y: 0, z: 0 };
     for (const vertex of vertices) {
@@ -73,6 +77,17 @@ export class Util {
     this.colourConverter.fillStyle = colour;
     this.colourConverter.fillRect(0, 0, 1, 1);
     return this.colourConverter.getImageData(0, 0, 1, 1).data;
+  }
+
+  static toColourString(colour) {
+    return `rgb(${colour[0]},${colour[1]},${colour[2]})`;
+  }
+
+  static blendColours(colour1, colour2, t) {
+    const differenceR = (colour2[0] - colour1[0]) * t;
+    const differenceG = (colour2[1] - colour1[1]) * t;
+    const differenceB = (colour2[2] - colour1[2]) * t;
+    return [colour1[0] + differenceR, colour1[1] + differenceG, colour1[2] + differenceB];
   }
 
   static distance(p1, p2) {

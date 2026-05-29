@@ -27,9 +27,11 @@ function drawPoint(p) {
 const scene = new Scene();
 const camera = new Camera();
 const red = new Light(4, 4, 5, "red");
+const green = new Light(0, -4, -10, "green");
 const shape = new SimpleShape();
 scene.add(shape);
 scene.addLight(red);
+scene.addLight(green);
 
 const gui = new dat.GUI();
 const cubeFolder = gui.addFolder("cube");
