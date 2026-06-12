@@ -7,12 +7,30 @@ export class Util {
     return { x, y: p.y, z };
   }
 
+  static rotateYInPlace(p, a){
+    const sin = Math.sin(a);
+    const cos = Math.cos(a);
+    const x = p.x * cos - p.z * sin;
+    const z = p.x * sin + p.z * cos;
+    p.x = x;
+    p.z = z;
+  }
+
   static rotateX(p, a) {
     const sin = Math.sin(a);
     const cos = Math.cos(a);
     const y = p.y * cos - p.z * sin;
     const z = p.y * sin + p.z * cos;
     return { x: p.x, y, z };
+  }
+
+  static rotateXInPlace(p, a){
+    const sin = Math.sin(a);
+    const cos = Math.cos(a);
+    const y = p.y * cos - p.z * sin;
+    const z = p.y * sin + p.z * cos;
+    p.y = y;
+    p.z = z;
   }
 
   static rotateZ(p, a) {

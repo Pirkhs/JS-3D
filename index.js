@@ -2,6 +2,7 @@ import { Light } from "./Light.js";
 import { SimpleShape } from "./SimpleShape.js";
 import Camera from "./camera.js";
 import { Scene } from "./Scene.js";
+import Go from "./Go.js"
 
 const canvas = document.getElementById("canvas");
 const view = canvas.getContext("2d");
@@ -26,7 +27,7 @@ function drawPoint(p) {
 
 const scene = new Scene();
 const camera = new Camera();
-const red = new Light(4, 4, 5, "red");
+const red = new Light(4, 4, -5, "red");
 const green = new Light(0, -4, -10, "green");
 const shape = new SimpleShape();
 scene.add(shape);
@@ -45,6 +46,12 @@ ligthFolder.add(red.position, "x", -10, 10, 0.01);
 ligthFolder.add(red.position, "y", -10, 10, 0.01);
 ligthFolder.add(red.position, "z", -100, 10, 0.01);
 
+
+const cameraFolder = gui.addFolder("camera");
+cameraFolder.add(camera.position, "x", -20, 20, 0.1);
+cameraFolder.add(camera.position, "y", -20, 20, 0.1);
+cameraFolder.add(camera.position, "z", -100, 100, 0.1);
+
 function animate() {
   view.clearRect(0, 0, canvas.width, canvas.height);
   shape.rotation.z += 0.01;
@@ -52,6 +59,12 @@ function animate() {
   shape.rotation.x -= 0.01;
   // shape.draw(camera);
   // red.draw(camera);
+
+  if (Go.RotateLeft) camera.rotation.y -= 0.01
+  if (Go.RotateRight) camera.rotation.y += 0.01
+  if (Go.TiltUp) camera.rotation.x += 0.01
+  if (Go.TiltDown) camera.rotation.x -= 0.01
+
   scene.draw(camera);
   requestAnimationFrame(animate);
 }

@@ -27,6 +27,10 @@ export class Transform {
       y: p.world.y - camera.position.y,
       z: p.world.z - camera.position.z
     }
+
+    Util.rotateYInPlace(view, -camera.rotation.y)   
+    Util.rotateXInPlace(view, -camera.rotation.x) 
+
     p.view = view
   }
 
