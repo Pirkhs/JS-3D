@@ -21,6 +21,7 @@ export class Light {
   draw(camera) {
     const p = { x: 0, y: 0, z: 0 };
     this.projectPoint(p, camera);
+    if (p.view.clipped) return;
     const distance = 1 / Util.distance(p.world, camera.position);
     const size = this.size * distance;
     view.beginPath();

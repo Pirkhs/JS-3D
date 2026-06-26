@@ -10,7 +10,7 @@ export class Transform {
     const ry = Util.rotateY(sp, rotation.y);
     const rx = Util.rotateX(ry, rotation.x);
     const rz = Util.rotateZ(rx, rotation.z);
-    p.local = rz
+    p.local = rz;
   }
   static toWorldSpace(p, position) {
     const world = {
@@ -18,20 +18,24 @@ export class Transform {
       y: p.local.y + position.y,
       z: p.local.z + position.z,
     };
-    p.world = world
+    p.world = world;
   }
 
   static toViewSpace(p, camera) {
     const view = {
       x: p.world.x - camera.position.x,
       y: p.world.y - camera.position.y,
-      z: p.world.z - camera.position.z
-    }
+      z: p.world.z - camera.position.z,
+    };
 
-    Util.rotateYInPlace(view, -camera.rotation.y)   
-    Util.rotateXInPlace(view, -camera.rotation.x) 
-
-    p.view = view
+    Util.rotateYInPlace(view, -camera.rotation.y);
+    Util.rotateXInPlace(view, -camera.rotation.x);
+    view.clipped =
+      view.z > -camera.projection.near ||
+      view.z < -camera.projection.far ||
+      Math.abs(view.x) > Math.abs(view.z) ||
+      Math.abs(view.y) > Math.abs(view.z);
+    p.view = view;
   }
 
   static toXYSpace(p) {
@@ -43,6 +47,6 @@ export class Transform {
       x: screenX,
       y: screenY,
     };
-    p.screen = screen
+    p.screen = screen;
   }
 }

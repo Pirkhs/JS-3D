@@ -7,7 +7,7 @@ export class Util {
     return { x, y: p.y, z };
   }
 
-  static rotateYInPlace(p, a){
+  static rotateYInPlace(p, a) {
     const sin = Math.sin(a);
     const cos = Math.cos(a);
     const x = p.x * cos - p.z * sin;
@@ -24,7 +24,7 @@ export class Util {
     return { x: p.x, y, z };
   }
 
-  static rotateXInPlace(p, a){
+  static rotateXInPlace(p, a) {
     const sin = Math.sin(a);
     const cos = Math.cos(a);
     const y = p.y * cos - p.z * sin;
@@ -105,10 +105,24 @@ export class Util {
     const differenceR = (colour2[0] - colour1[0]) * t;
     const differenceG = (colour2[1] - colour1[1]) * t;
     const differenceB = (colour2[2] - colour1[2]) * t;
-    return [colour1[0] + differenceR, colour1[1] + differenceG, colour1[2] + differenceB];
+    return [
+      colour1[0] + differenceR,
+      colour1[1] + differenceG,
+      colour1[2] + differenceB,
+    ];
   }
 
   static distance(p1, p2) {
     return Math.hypot(p1.x - p2.x, p1.y - p2.y, p1.z - p2.z);
+  }
+
+  static forwardDirection(azimuth, elevation) {
+    const cosEl = Math.cos(elevation);
+
+    return {
+      x: cosEl * Math.sin(azimuth),
+      y: Math.sin(elevation),
+      z: -cosEl * Math.cos(azimuth),
+    };
   }
 }

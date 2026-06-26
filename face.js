@@ -13,6 +13,7 @@ export class Face {
 
   draw(projected, camera) {
     const vertices = this.vertices.map((v) => projected[v]);
+    if (vertices.some((v) => v.view.clipped)) return;
     // this.drawWireFrame(vertices, camera);
     this.drawFace(vertices, camera);
   }
@@ -63,7 +64,9 @@ export class Face {
     let baseColor = [64, 64, 64];
 
     for (const light of this.parent.scene.lights) {
-      const toLight = Util.normalize(Util.subtract(light.position, centerPoint));
+      const toLight = Util.normalize(
+        Util.subtract(light.position, centerPoint)
+      );
 
       let brightness = Util.dot(normal, toLight);
       brightness = Util.clamp(brightness, 0.1, 1);
