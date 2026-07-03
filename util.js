@@ -125,4 +125,10 @@ export class Util {
       z: -cosEl * Math.cos(azimuth),
     };
   }
+
+  static rightDirection(azimuth) {
+    const right = {x: 1.0, y: 0.0, z: 0.0};
+    const rightVector = Util.rotateY(right, azimuth);
+    return rightVector;
+  }
 }

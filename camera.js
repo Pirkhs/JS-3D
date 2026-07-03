@@ -55,4 +55,16 @@ export default class Camera {
     this.position.y += forward.y * distance;
     this.position.z += forward.z * distance;
   }
+
+  get right() {
+    const right = Util.rightDirection(this.rotation.y);
+    return right;
+  }
+
+  moveStrafe(distance) {
+    const right = this.right;
+    this.position.x += right.x * distance;
+    this.position.y += right.y * distance;
+    this.position.z += right.z * distance;
+  }
 }

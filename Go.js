@@ -28,4 +28,10 @@ export default class Go {
   static get Backward() {
     return Key.Down("KeyS");
   }
+  static get Left() {
+    return Key.Down("KeyA");
+  }
+  static get Right() {
+    return Key.Down("KeyD");
+  }
 }

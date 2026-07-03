@@ -31,6 +31,15 @@ const red = new Light(4, 4, -5, "red");
 const green = new Light(0, -4, -10, "green");
 const shape = new SimpleShape();
 scene.add(shape);
+const numObjects = 20;
+for (let i = 0; i < numObjects; i++) {
+  const x = (Math.random() * 40) - 20;
+  const y = (Math.random() * 40) - 20;
+  const z = (Math.random() * -40) - 1;
+  const shape = new SimpleShape(x, y, z);
+  scene.add(shape);
+} 
+
 scene.addLight(red);
 scene.addLight(green);
 
@@ -65,6 +74,8 @@ function animate() {
   if (Go.TiltDown) camera.tilt(-0.01);
   if (Go.Forward) camera.moveForward(0.1);
   if (Go.Backward) camera.moveForward(-0.1);
+  if (Go.Left) camera.moveStrafe(-0.1);
+  if (Go.Right) camera.moveStrafe(0.1);
 
   scene.draw(camera);
   requestAnimationFrame(animate);

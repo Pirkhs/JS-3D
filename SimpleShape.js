@@ -6,11 +6,9 @@ const canvas = document.getElementById("canvas");
 const view = canvas.getContext("2d");
 
 export class SimpleShape {
-  position = {
-    x: 0,
-    y: 0,
-    z: -10,
-  };
+  constructor(x = 0, y = 0, z = -10) {
+    this.position = { x, y, z };
+  }
   rotation = {
     x: 0,
     y: 0,
