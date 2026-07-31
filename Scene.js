@@ -1,10 +1,10 @@
-
 const canvas = document.getElementById("canvas");
 const view = canvas.getContext("2d");
 
 export class Scene {
   objects = [];
   lights = [];
+  plane = null;
 
   add(o) {
     o.scene = this;
@@ -16,7 +16,14 @@ export class Scene {
     this.add(l);
   }
 
+  addPlane(p) {
+    this.plane = p;
+  }
+
   draw(camera) {
+    if (this.plane) {
+      this.plane.draw(camera);
+    }
     for (const o of this.objects) {
       o.draw(camera);
     }
@@ -27,6 +34,5 @@ export class Scene {
     view.beginPath();
     view.arc(canvas.width / 2, canvas.height / 2, 10, 0, Math.PI * 2);
     view.stroke();
-
   }
 }

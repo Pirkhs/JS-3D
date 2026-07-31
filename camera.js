@@ -12,14 +12,14 @@ export default class Camera {
       } else {
         canvas.requestPointerLock();
       }
-    }); 
+    });
   }
 
   constructor() {
     Camera.Instance = this;
-    this.position = { x: 5, y: 0, z: 0 };
+    this.position = { x: 0, y: 10, z: 10 };
     this.rotation = { x: 0, y: 0 };
-    this.projection = { near: 1, far: 100, FOV: Math.PI / 2 };
+    this.projection = { near: 1, far: 125, FOV: Math.PI / 4 };
 
     document.addEventListener("pointerlockchange", (e) => {
       if (document.pointerLockElement === canvas) {
@@ -42,6 +42,10 @@ export default class Camera {
 
   tilt(delta) {
     this.rotation.x += delta;
+  }
+
+  elevate(delta) {
+    this.position.y += delta;
   }
 
   get forward() {

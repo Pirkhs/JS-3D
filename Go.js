@@ -34,4 +34,10 @@ export default class Go {
   static get Right() {
     return Key.Down("KeyD");
   }
+  static get Higher() {
+    return Key.Down("KeyE");
+  }
+  static get Lower() {
+    return Key.Down("KeyC");
+  }
 }
