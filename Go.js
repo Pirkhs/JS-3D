@@ -40,4 +40,7 @@ export default class Go {
   static get Lower() {
     return Key.Down("KeyC");
   }
+  static get SpawnParticle() {
+    return Key.Once("Space")
+  }
 }

@@ -101,6 +101,10 @@ export class Util {
     return `rgb(${colour[0]},${colour[1]},${colour[2]})`;
   }
 
+  static toColourStringAlpha(colour) {
+    return `rgba(${colour[0]},${colour[1]},${colour[2]},${colour[3]})`;
+  }
+
   static blendColours(colour1, colour2, t) {
     const differenceR = (colour2[0] - colour1[0]) * t;
     const differenceG = (colour2[1] - colour1[1]) * t;

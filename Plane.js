@@ -19,7 +19,7 @@ export class Plane {
       for (let x = 0; x <= sides; x++) {
         const p = [
           (x + this.offset) * scale,
-          Math.sin(z + x) * 0.9,
+          0, //Math.sin(z + x) * 0.9,
           (z + this.offset) * scale - 25,
         ];
         this.model.push(p);

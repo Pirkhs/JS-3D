@@ -4,6 +4,7 @@ import Camera from "./camera.js";
 import { Scene } from "./Scene.js";
 import Go from "./Go.js";
 import { Plane } from "./Plane.js";
+import { ParticleEmiter } from "./Particle.js";
 
 const canvas = document.getElementById("canvas");
 const view = canvas.getContext("2d");
@@ -29,12 +30,14 @@ function drawPoint(p) {
 const scene = new Scene();
 const plane = new Plane(25, 2);
 scene.add(plane);
+const particleEmitter = new ParticleEmiter(0, 1, -5);
+scene.add(particleEmitter);
 const camera = new Camera();
-const red = new Light(4, 4, -5, "red");
-const green = new Light(0, 4, -10, "green");
-const shape = new SimpleShape();
+const red = new Light(20, 4, -5, "red");
+const green = new Light(20, 4, -10, "green");
+const shape = new SimpleShape(-15, 1);
 scene.add(shape);
-const numObjects = 20;
+const numObjects = 2;
 for (let i = 0; i < numObjects; i++) {
   const x = Math.random() * 40 - 20;
   const y = Math.random() * 40 + 5;
@@ -81,6 +84,9 @@ function animate() {
   if (Go.Right) camera.moveStrafe(0.1);
   if (Go.Higher) camera.elevate(0.1);
   if (Go.Lower) camera.elevate(-0.1);
+  if (Go.SpawnParticle) particleEmitter.spawnParticle();
+
+  particleEmitter.spawnParticle();
 
   scene.draw(camera);
   requestAnimationFrame(animate);
