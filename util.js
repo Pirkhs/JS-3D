@@ -57,7 +57,11 @@ export class Util {
     const length = Math.hypot(v1.x, v1.y, v1.z);
     return { x: v1.x / length, y: v1.y / length, z: v1.z / length };
   }
-
+  static setMagnitude(v1, magnitude) {
+    const length = Math.hypot(v1.x, v1.y, v1.z);
+    const scale = magnitude / length;
+    return { x: v1.x * scale, y: v1.y * scale, z: v1.z * scale };
+  }
   static dot(v1, v2) {
     return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
   }
@@ -72,6 +76,10 @@ export class Util {
 
   static clamp(value, min, max) {
     return Math.max(min, Math.min(value, max));
+  }
+
+  static lerp(from, to, t) {
+    return from + (to - from) * t;
   }
 
   static centroid(...vertices) {
@@ -97,12 +105,17 @@ export class Util {
     return this.colourConverter.getImageData(0, 0, 1, 1).data;
   }
 
+  static toRGB(colour) {
+    const rgba = this.toRGBA(colour);
+    return [rgba[0], rgba[1], rgba[2]];
+  }
+
   static toColourString(colour) {
     return `rgb(${colour[0]},${colour[1]},${colour[2]})`;
   }
 
-  static toColourStringAlpha(colour) {
-    return `rgba(${colour[0]},${colour[1]},${colour[2]},${colour[3]})`;
+  static toColourStringAlpha(rgb, alpha) {
+    return `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
   }
 
   static blendColours(colour1, colour2, t) {
@@ -134,5 +147,8 @@ export class Util {
     const right = {x: 1.0, y: 0.0, z: 0.0};
     const rightVector = Util.rotateY(right, azimuth);
     return rightVector;
+  }
+  static randomRange(min, max) {
+    return Math.random() * (max - min) + min;
   }
 }
